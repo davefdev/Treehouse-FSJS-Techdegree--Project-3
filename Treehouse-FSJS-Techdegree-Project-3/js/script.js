@@ -14,8 +14,13 @@ const jobRoleSelect = document.querySelector('#title');
 const otherJobRoleInput = document.querySelector('#other-job-role')
 
 //create a hide element function that can be reused
-const hideElement(elem) {
+function hideElement(elem) {
     elem.style.display = 'hidden';
+}
+
+//create function to display element regardless 
+function displayElement(elem, displayProp) {
+    element.style.display = [displayProp];
 }
 //hide the other job element
 hideElement(otherJobRoleInput);
