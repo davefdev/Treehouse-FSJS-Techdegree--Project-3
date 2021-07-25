@@ -4,14 +4,20 @@ FSJS Project 3 - Interactive Form
 */
 
 
+///////////////NAME SECTION//////////////////////
 //focus on the name input field
-const focusName = document.querySelectorAll('input[type=text]');
-console.log(focusName);
-focusName[0].focus();
+const nameInput = document.querySelector('#name');
+console.log(nameInput);
+nameInput.focus();
 
+
+/////////JOB ROLE SECTION/////////////////////
 //access job role 
-const jobRoleSelect = document.querySelector('#title');
-const otherJobRoleInput = document.querySelector('#other-job-role')
+const jobRole = document.querySelector('#title');
+const otherJobRole = document.querySelector('#other-job-role');
+
+//hide the other job element
+otherJobRole.style.display = 'hidden';
 
 //create a hide element function that can be reused
 function hideElement(elem) {
@@ -19,17 +25,33 @@ function hideElement(elem) {
 }
 
 //create function to display element regardless 
-function displayElement(elem, displayProp) {
-    element.style.display = [displayProp];
+function displayElement(elem) {
+    element.style.display = 'show';
 }
-//hide the other job element
-hideElement(otherJobRoleInput);
 
 //event listener on change to hide other job role
-jobRoleSelect.addEventListener('change', () => {
-    if (jobRoleSelect.value === 'other') {
-        displayElement(otherJobRoleInput, 'block');
+jobRole.addEventListener('change', (e) => {
+    if (e.target.value === 'other') {
+        displayElement(otherJobRole);
     } else {
-        hideElement(otherJobRoleInput);
+        hideElement(otherJobRole);
+    }
+}); 
+
+/////////////////TSHIRT INFO SECTION/////////////
+//access job role 
+const designSelect = document.querySelector('#design');
+const colorSelect = document.querySelector('#color');
+const colorOptions = document.querySelectorAll('#color option');
+//alternatively const colorSelectOptions = colorSelect.children
+colorSelect.disabled = true;
+
+//event listener on change to hide other job role
+designSelect.addEventListener('change', (e) => {
+    //remove disabled
+    colorSelect.disabled = false;
+    //loop over color options`
+    for (let i = 0; i < colorOptions.length; i++) {
+        let tshirtColor = colorOptions[i];
     }
 }); 
