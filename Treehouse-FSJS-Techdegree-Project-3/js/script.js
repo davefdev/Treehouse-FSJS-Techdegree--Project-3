@@ -142,7 +142,7 @@ paymentMethod.addEventListener('change', (e) => {
 
 /////////////////FORM VALIDATION////////////////
 //set variables that haven't already been declared
-const email = querySelector('#email');
+const email = document.querySelector('#email');
 const cardNo = document.querySelector('#cc-num');
 const zip = document.querySelector('#zip');
 const cvv = document.querySelector('#cvv'); 
@@ -221,19 +221,19 @@ formElement.addEventListener('submit', (e) => {
         removeErrorMsg(validateEmail); 
     }
     //validate card number
-    if (!correctCardNo && paymentMethod.selected) {
+    if (!correctCardNo && paymentMethod[0].selected) {
         createErrorMsg(validateCardNo, cardnoError);
     } else {
         removeErrorMsg(validateCardNo); 
     }
     //validate zip code
-    if (!correctZip && paymentMethod.selected) {
+    if (!correctZip && paymentMethod[0].selected) {
         createErrorMsg(validateZip, zipError);
     } else {
         removeErrorMsg(validateZip); 
     }
     //validate CVV code
-    if (!correctCvv && paymentMethod.selected) {
+    if (!correctCvv && paymentMethod[0].selected) {
         createErrorMsg(validateCvv, cvvError);
     } else {
         removeErrorMsg(validateCvv); 
