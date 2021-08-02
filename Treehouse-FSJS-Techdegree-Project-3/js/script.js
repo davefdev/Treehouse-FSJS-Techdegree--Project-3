@@ -139,41 +139,36 @@ paymentMethod.addEventListener('change', (e) => {
     }
 });
 
+
 /////////////////FORM VALIDATION////////////////
 //set variables that haven't already been declared
 const email = querySelector('#email');
-const cardNo = document.querySelector("#cc-num");
-const zip = document.querySelector("#zip");
-const cvv = document.querySelector("#cvv"); 
+const cardNo = document.querySelector('#cc-num');
+const zip = document.querySelector('#zip');
+const cvv = document.querySelector('#cvv'); 
 const formElement = document.querySelector('form');
 
-
-
-//eventlistener on form submit with helper functions called
-formElement.addEventListener('submit', (e) => {
-        /*nameInputValue = nameInput.value;
-        nameIsValid = /^[a-zA-Z]+ ?[a-zA-Z]*? ?[a-zA-Z]*?$/.test(nameInputValue);
-        e.preventDefault();
-        if (nameIsValid) {
-            //do nothing
-        } else {
-            e.preventDefault();
-        }
-        */
+//set error messages (alternatively put inside an array)
+const nameError = "Please insert correct name";
+const emailError = "Please insert correct email address";
+const cardnoError = "Please insert correct card number";
+const zipError = "Please insert correct zip code";
+const cvvError = "Please insert correct CVV number";
+const activityError = "Please check the correct activity";
 
 
 
-}
 
-//create helper functions for each required field 
 
+//create validation functions for each required field 
 function validateName(name){
      //if name is not empty string
- 
+    return name != '';
 }
 
 function validateEmail(email) {
-
+    //taken from treehouse tuturial
+    return /^[^@]+@[^@.]+\.[a-z]+$/i.test(email.value);
 }
 
 function validateActivities(activity) {
@@ -181,24 +176,70 @@ function validateActivities(activity) {
 }
 
 function validateCardNo(cardno) {
-    
+    //from stackoverflow
+    return /^[0-9]{13,16}$/.test(cardno.value);
 }
 
 function validateZip(zip) {
-  
+    //from stackoverflow
+    return /(^\d{5}$)|(^\d{5}-\d{4}$)/.test(zip.value)
 }
 
 function validateCvv(cvv) {
-    
+    //matches 3 digits
+    return /^[0-9]{3}$/.test(cvv.value);
 }
 
-function setErrorMsg() {
+function createErrorMsg() {
 
 }
 
 function removeErrorMsg(){
 
 }		
+
+//eventlistener on form submit with functions called
+formElement.addEventListener('submit', (e) => {
+    let correctName = validateName(name.value);
+    let correctEmail = validateEmail(email.value);
+    let correctActivity = validateActivities(activity)
+    let correctCardNo = validateCardNo(cardno);
+    let correctZip = validateZip(zip);
+    let correctCvv = validateCvv(cvv);
+
+
+    //validate name
+    if (!correctName) {
+        createErrorMsg(validateName, nameError);
+    } else {
+        removeErrorMsg(validateName); 
+    }
+    //validate email
+    if (!correctEmail) {
+        createErrorMsg(validateEmail, emailError);
+    } else {
+        removeErrorMsg(validateEmail); 
+    }
+    //validate card number
+    if (!correctCardNo && paymentMethod.selected) {
+        createErrorMsg(validateCardNo, cardnoError);
+    } else {
+        removeErrorMsg(validateCardNo); 
+    }
+    //validate zip code
+    if (!correctZip && paymentMethod.selected) {
+        createErrorMsg(validateZip, zipError);
+    } else {
+        removeErrorMsg(validateZip); 
+    }
+    //validate CVV code
+    if (!correctCvv && paymentMethod.selected) {
+        createErrorMsg(validateCvv, cvvError);
+    } else {
+        removeErrorMsg(validateCvv); 
+    }
+    e.preventDefault();
+}
 
 
 
@@ -224,17 +265,54 @@ for (let i = 0; i < activityCheckboxes.length; i++) {
 //add form input validation error indications to assist the user
 
 //create function to pass element 
-function validatePass(elem) {
+function passValidation(elem) {
     //remove ccs class to parent
     elem.parentElement.classList.remove('not-valid');
     //add css class to parent
     elem.parentElement.classList.add('valid');
-    //make child element hidden (but keep the space used)
+    //make hint hidden 
     elem.parentElement.lastElementChild.style.visibility = 'hidden';
 }
 //console.log(validationPass(form));
-function validateFail(elem) {
+function failValidation(elem) {
+    //remove valid class
     elem.parentElement.classList.remove('valid');
+    //add not valid class
     elem.parentElement.classList.add('not-valid');
+    //display the hint
     elem.parentElement.lastElementChild.style.visibility = 'visible';
 }
+
+
+
+
+
+
+
+////////////////EXTRA CREDITS ATTEMPT/////////////////
+//Real-time Error Message
+
+email.addEventListener('keyup', (e) => {
+
+
+});
+
+/*
+
+Prevent users from registering for conflicting activities
+Ideally, we want to prevent users from selecting activities that occur at the same time.
+
+When a user selects an activity, loop over all of the activities, check if any have the same day and time as the activity that was just checked/unchecked, and as long as the matching activity is not the activity that was just checked/unchecked, disable/enable the conflicting activity’s checkbox input and add/remove the ‘.disabled’ className to activity’s parent label element.
+Real-time error message
+Providing form validation error indications at the moment they occur better serves your user.
+
+Program at least one of the required fields to listen for user interaction like a keyup. When then user interaction occurs, run the validation check for that input. If you created helper functions to validate the required form inputs and sections, you can call those helper functions inside of a field’s event listener.
+Detail this specific feature in your README.md file.
+Conditional error message
+Providing additional information for certain types of errors can be very helpful to your user. For example, if the email address field is empty, it would be enough to inform the user that they should add an email address. But if they’ve already added an email address, but formatted it incorrectly, that message wouldn’t be helpful.
+
+For at least one required form section, provide one error message if the field fails on one of its requirements, and a separate message if it fails on one of its other requirements.
+Detail this specific feature in your README.md file.
+
+*/
+
