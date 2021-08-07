@@ -93,8 +93,10 @@ activitiesArea.addEventListener('change', (e) => {
     let activityChecked = e.target.checked;
    //conditional for checked or unchecked
     if (activityChecked) {
+        //add the price
         activitiesTotal += activityPrice;
     } else {
+        //subtract the price
         activitiesTotal -= activityPrice;
     }
 
@@ -190,11 +192,11 @@ function validateCvv(cvv) {
     return /^[0-9]{3}$/.test(cvv.value);
 }
 
-function createErrorMsg() {
+function createErrorMsg(element, errorMsg) {
 
 }
 
-function removeErrorMsg(){
+function removeErrorMsg(element) {
 
 }		
 
