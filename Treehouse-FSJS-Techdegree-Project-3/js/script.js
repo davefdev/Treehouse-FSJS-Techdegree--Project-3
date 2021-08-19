@@ -3,20 +3,20 @@ Treehouse Techdegree:
 FSJS Project 3 - Interactive Form
 */
 
-///////////////NAME SECTION//////////////////////
+///////////////NAME SECTION (3)//////////////////////
 //focus on the name input field
 const nameInput = document.querySelector('#name');
 console.log(nameInput);
 nameInput.focus();
 
-/////////JOB ROLE SECTION/////////////////////
-//access job role 
+/////////JOB ROLE SECTION (4)/////////////////////
+//access job and other job role elements 
 const jobRole = document.querySelector('#title');
 const otherJobRole = document.querySelector('#other-job-role');
 
 //hide the other job element
 otherJobRole.hidden = true;
-//otherJobRole.setAttribute('hidden', true);
+//alternatively otherJobRole.setAttribute('hidden', true);
 
 //create a hide element function that can be reused
 function hideElement(elem) {
@@ -32,19 +32,23 @@ function displayElement(elem) {
 
 //event listener on change to hide other job role
 jobRole.addEventListener('change', (e) => {
+    //if event elements value is strictly 'other'
     if (e.target.value === 'other') {
+        //call the display element with otherjobrole passed in to display it
         displayElement(otherJobRole);
+        //or hide it
     } else {
         hideElement(otherJobRole);
     }
 }); 
 
-/////////////////TSHIRT INFO SECTION/////////////
-//access job role 
+/////////////////TSHIRT INFO SECTION (5)/////////////
+//select elements
 const designSelect = document.querySelector('#design');
 const colorSelect = document.querySelector('#color');
 const colorOptions = document.querySelectorAll('#color option');
 //alternatively const colorSelectOptions = colorSelect.children
+
 //disable color options
 colorSelect.disabled = true;
 //colorSelect.setAttribute('disabled', true);
@@ -53,9 +57,12 @@ colorSelect.disabled = true;
 designSelect.addEventListener('change', (e) => {
     //remove disabled
     colorSelect.disabled = false;
-    //loop over color options`
+
+    //loop over color options
     for (let i = 0; i < colorOptions.length; i++) {
+        //get current shirt color (returns nodelist)
         let shirtColor = colorOptions[i];
+        //get current shirt color value
         let shirtColorValue = shirtColor.value;
         console.log(shirtColor);
         console.log(shirtColorValue);
@@ -63,7 +70,7 @@ designSelect.addEventListener('change', (e) => {
         let shirtTheme = colorOptions[i].getAttribute('data-theme');
         console.log(shirtTheme);
 
-        //conditional to check 
+        //conditional to check if colors are same or not
         if (shirtColorValue === shirtTheme) {
             colorOptions[i].hidden = false;
             colorOptions[i].setAttribute('selected', true);
@@ -241,7 +248,7 @@ formElement.addEventListener('submit', (e) => {
         removeErrorMsg(validateCvv); 
     }
     e.preventDefault();
-}
+});
 
 
 
@@ -317,4 +324,6 @@ For at least one required form section, provide one error message if the field f
 Detail this specific feature in your README.md file.
 
 */
+
+
 
